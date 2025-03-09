@@ -17,7 +17,6 @@ var Database *sql.DB
 const formatDate = "20060102"
 
 func main() {
-
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatalf("Error loading .env file: %v", err)
@@ -46,9 +45,7 @@ func main() {
 		port = "7540"
 	}
 
-	if envPort := os.Getenv("TODO_PORT"); envPort != "" {
-		port = envPort
-	}
+	log.Printf("Starting server on port: %s\n", port)
 
 	fs := http.FileServer(http.Dir(webDir))
 	http.Handle("/", fs)
@@ -61,5 +58,4 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 }

@@ -229,7 +229,7 @@ func UpdateTask(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	trueTask, err := getID(task.ID)
+	trueTask, err := getTask(task.ID)
 	if err != nil {
 		http.Error(w, fmt.Sprintf(`{"error":"%s"}`, err.Error()), http.StatusNotFound)
 		return
@@ -273,7 +273,7 @@ func UpdateTask(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func getID(id string) (*Task, error) {
+func getTask(id string) (*Task, error) {
 	query := `SELECT id, date, title, comment, repeat FROM scheduler WHERE id = ?`
 	row := Database.QueryRow(query, id)
 
